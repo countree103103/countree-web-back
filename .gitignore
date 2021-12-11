@@ -1,3 +1,4 @@
+www/
 logs/
 npm-debug.log
 yarn-error.log
@@ -13,5 +14,3 @@ run/
 *.un~
 .tsbuildinfo
 .tsbuildinfo.*
-www/
-*.db

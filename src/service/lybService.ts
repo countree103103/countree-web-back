@@ -1,10 +1,10 @@
 import { InjectEntityModel } from '@midwayjs/orm';
-import { Lyb } from './../entity/lyb';
+import { LybEntity } from './../entity/lyb';
 import { Provide } from '@midwayjs/decorator';
 
 @Provide()
 export default class LybService {
-  @InjectEntityModel(Lyb)
+  @InjectEntityModel(LybEntity)
   lybModel: any;
 
   async getData() {

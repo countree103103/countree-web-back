@@ -1,4 +1,4 @@
-import { Context } from 'egg';
+import { Context } from '@midwayjs/koa';
 import {
   Inject,
   Controller,
@@ -8,9 +8,11 @@ import {
   Body,
   SetHeader,
   ALL,
+  RequestIP,
+  Headers,
 } from '@midwayjs/decorator';
 import LybService from '../service/lybService';
-import { Lyb } from '../entity/lyb';
+import { LybEntity } from '../entity/lyb';
 import * as fs from 'fs/promises';
 
 @Provide()
@@ -35,10 +37,25 @@ export class APIController {
   @Post('/lyb')
   @SetHeader('Access-Control-Allow-Origin', '*')
   async postLyb(@Body(ALL) body: any) {
-    const newMessage = new Lyb();
+    const newMessage = new LybEntity();
     newMessage.guest_message = body.guest_message;
     newMessage.guest_name = body.guest_name;
     newMessage.time = new Date();
     return this.lybService.saveData(newMessage);
+  }
+
+  @Get('/ip')
+  @SetHeader('Access-Control-Allow-Origin', '*')
+  async getIp(@RequestIP() ip: string, @Headers('x-real-ip') realIp: any) {
+    const reg = /.*:(.*)/;
+    if (realIp) {
+      return realIp;
+    }
+    if (reg.test(ip)) {
+      const rsl = reg.exec(ip);
+      return rsl[1];
+    } else {
+      return ip;
+    }
   }
 }

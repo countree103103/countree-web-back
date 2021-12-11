@@ -3,7 +3,7 @@ import { EntityModel } from '@midwayjs/orm';
 import { Column, PrimaryGeneratedColumn } from 'typeorm';
 
 @EntityModel({ name: 'lyb' })
-export class Lyb {
+export class LybEntity {
   @PrimaryGeneratedColumn({ name: 'id' })
   id: number;
 

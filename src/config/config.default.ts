@@ -1,24 +1,19 @@
-import { EggAppConfig, EggAppInfo, PowerPartial } from 'egg';
 import * as path from 'path';
 
-export type DefaultConfig = PowerPartial<EggAppConfig>;
+export default {
+  
+  keys: '7788countree',
 
-export default (appInfo: EggAppInfo) => {
-  const config = {} as DefaultConfig;
+  // middleware : [],
+  wxToken: '7788countree',
 
-  // use for cookie sign key, should change to your own and keep security
-  config.keys = appInfo.name + '_{{keys}}';
-
-  // add your config here
-  config.middleware = [];
-
-  config.security = {
+  security : {
     csrf: {
-      enable: true,
+      enable: false,
     },
-  };
+  },
 
-  config.orm = {
+  orm : {
     type: 'sqlite',
 
     database: path.join(__dirname, '../../data.db'),
@@ -26,7 +21,5 @@ export default (appInfo: EggAppInfo) => {
     synchronize: true,
 
     logging: true,
-  };
-
-  return config;
+  }
 };
