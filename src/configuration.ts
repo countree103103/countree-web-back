@@ -15,7 +15,7 @@ export class ContainerLifeCycle {
   @App()
   app: Application;
 
-  async onReady() {
+  async onReady(): Promise<void> {
     this.app.use(
       session(
         {
