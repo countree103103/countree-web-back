@@ -1,4 +1,3 @@
-www/
 logs/
 npm-debug.log
 yarn-error.log
@@ -14,3 +13,5 @@ run/
 *.un~
 .tsbuildinfo
 .tsbuildinfo.*
+srcbak/
+data.db

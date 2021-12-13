@@ -8,30 +8,30 @@ import {
   CreateDateColumn,
 } from 'typeorm';
 
-@EntityModel({ name: 'coffee-Product' })
+@EntityModel()
 export class CoffeeUserEntity {
-  @PrimaryGeneratedColumn({ name: 'id' })
+  @PrimaryGeneratedColumn()
   id: number;
 
-  @Column({ name: 'user_name' })
+  @Column()
   user_name: string;
 
-  @Column({ name: 'user_password' })
+  @Column()
   user_password: string;
 
-  @CreateDateColumn({ name: 'register_date' })
+  @CreateDateColumn()
   register_date: Date;
 
-  @Column({ name: 'last_login_date' })
+  @Column()
   last_login_date: Date;
 
-  @Column({ name: 'last_login_ip' })
+  @Column()
   last_login_ip: string;
 
-  @Column({ name: 'user_gender', enum: ['男', '女', '未知'] })
+  @Column({ enum: ['男', '女', '未知'] })
   user_gender: string;
 
-  @Column({ name: 'user_avatar' })
+  @Column()
   user_avatar: string;
 
   @OneToMany(() => CoffeeUserAddressEntity, address => address.user)

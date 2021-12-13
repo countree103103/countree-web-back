@@ -1,23 +1,21 @@
 import { EntityModel } from '@midwayjs/orm';
-// eslint-disable-next-line node/no-extraneous-import
 import {
-  Column,
+  // Column,
   PrimaryGeneratedColumn,
   OneToOne,
   CreateDateColumn,
   ManyToMany,
 } from 'typeorm';
 import { CoffeeProductEntity } from './Product';
-import { CoffeeProductOptEntity } from './ProductOpt';
 import { CoffeeUserEntity } from './User';
 import { CoffeeUserAddressEntity } from './UserAddress';
 
-@EntityModel({ name: 'coffee-Product' })
+@EntityModel()
 export class CoffeeOrderEntity {
-  @PrimaryGeneratedColumn({ name: 'id' })
+  @PrimaryGeneratedColumn()
   id: number;
 
-  @CreateDateColumn({ name: 'order_create_time' })
+  @CreateDateColumn()
   order_create_time: Date;
 
   @OneToOne(() => CoffeeUserAddressEntity)
@@ -26,6 +24,6 @@ export class CoffeeOrderEntity {
   @ManyToMany(() => CoffeeProductEntity)
   product: CoffeeProductEntity[];
 
-  // @OneToOne(() => CoffeeUserEntity)
-  // user: CoffeeUserEntity;
+  @OneToOne(() => CoffeeUserEntity)
+  user: CoffeeUserEntity;
 }

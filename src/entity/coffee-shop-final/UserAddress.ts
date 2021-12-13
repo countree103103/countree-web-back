@@ -3,21 +3,21 @@ import { EntityModel } from '@midwayjs/orm';
 import { Column, PrimaryGeneratedColumn, ManyToOne } from 'typeorm';
 import { CoffeeUserEntity } from './User';
 
-@EntityModel({ name: 'coffee-UserAddress' })
+@EntityModel()
 export class CoffeeUserAddressEntity {
   @PrimaryGeneratedColumn({ name: 'id' })
   id: number;
 
-  @Column({ name: 'first_name' })
+  @Column()
   first_name: string;
 
-  @Column({ name: 'last_name' })
+  @Column()
   last_name: string;
 
-  @Column({ name: 'tel' })
+  @Column()
   tel: string;
 
-  @Column({ name: 'address' })
+  @Column()
   address: string;
 
   @ManyToOne(() => CoffeeUserEntity, user => user.address)

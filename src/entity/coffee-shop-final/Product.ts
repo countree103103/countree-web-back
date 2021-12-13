@@ -1,5 +1,4 @@
 import { EntityModel } from '@midwayjs/orm';
-// eslint-disable-next-line node/no-extraneous-import
 import {
   Column,
   PrimaryGeneratedColumn,
@@ -9,39 +8,38 @@ import {
 } from 'typeorm';
 import { CoffeeProductOptEntity } from './ProductOpt';
 
-@EntityModel({ name: 'coffee-Product' })
+@EntityModel()
 export class CoffeeProductEntity {
-  @PrimaryGeneratedColumn({ name: 'id' })
+  @PrimaryGeneratedColumn()
   id: number;
 
-  @Column({ name: 'product_name' })
+  @Column()
   product_name: string;
 
-  @Column({ name: 'product_des' })
+  @Column()
   product_des: string;
 
-  @CreateDateColumn({ name: 'product_create_time,' })
-  product_create_time: Date;
+  @CreateDateColumn()
+  product_create_time: any;
 
-  @Column({ name: 'product_price_now' })
+  @Column()
   product_price_now: number;
 
-  @Column({ name: 'product_price_before' })
+  @Column()
   product_price_before: number;
 
-  @UpdateDateColumn({ name: 'product_update_time' })
-  product_update_time: Date;
+  @UpdateDateColumn()
+  product_update_time: any;
 
-  @Column({ name: 'product_type,' })
+  @Column()
   product_type: string;
 
-  @Column({ name: 'product_img,' })
+  @Column()
   product_img: string;
 
-  @Column({ name: 'product_status', enum: ['在架', '下架'] })
+  @Column({ enum: ['在架', '下架'] })
   product_status: string;
 
   @OneToOne(() => CoffeeProductOptEntity, product_opt => product_opt.product)
-  // @JoinColumn({ name: 'product_opt' })
   product_opt: CoffeeProductOptEntity;
 }

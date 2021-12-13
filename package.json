@@ -4,14 +4,15 @@
   "description": "",
   "private": true,
   "dependencies": {
-    "@midwayjs/bootstrap": "^2.5.2",
+    "@midwayjs/bootstrap": "^2.3.0",
+    "@midwayjs/core": "^2.3.0",
     "@midwayjs/decorator": "^2.3.0",
+    "@midwayjs/koa": "^2.3.0",
     "@midwayjs/orm": "^2.14.0",
-    "@midwayjs/web": "^2.3.0",
-    "egg": "^2.0.0",
-    "egg-scripts": "^2.10.0",
+    "fast-xml-parser": "^3.21.1",
+    "koa-bodyparser": "^4.3.0",
     "koa-session": "^6.2.0",
-    "sqlite3": "^5.0.0",
+    "sqlite3": "^5.0.2",
     "typeorm": "^0.2.41"
   },
   "devDependencies": {
@@ -19,6 +20,7 @@
     "@midwayjs/luckyeye": "^1.0.0",
     "@midwayjs/mock": "^2.3.0",
     "@types/jest": "^26.0.10",
+    "@types/koa-bodyparser": "^4.3.0",
     "@types/node": "14",
     "cross-env": "^6.0.0",
     "jest": "^26.4.0",

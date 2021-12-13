@@ -3,7 +3,6 @@ import {
   ALL,
   Body,
   Controller,
-  Get,
   Inject,
   Post,
   Provide,
