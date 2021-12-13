@@ -20,6 +20,6 @@ export class CoffeeUserAddressEntity {
   @Column()
   address: string;
 
-  @ManyToOne(() => CoffeeUserEntity, user => user.address)
+  @ManyToOne(() => CoffeeUserEntity, user => user.address, { cascade: true })
   user: CoffeeUserEntity;
 }

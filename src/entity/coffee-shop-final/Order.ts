@@ -5,6 +5,8 @@ import {
   OneToOne,
   CreateDateColumn,
   ManyToMany,
+  JoinTable,
+  JoinColumn,
 } from 'typeorm';
 import { CoffeeProductEntity } from './Product';
 import { CoffeeUserEntity } from './User';
@@ -21,9 +23,11 @@ export class CoffeeOrderEntity {
   @OneToOne(() => CoffeeUserAddressEntity)
   address: CoffeeUserAddressEntity;
 
-  @ManyToMany(() => CoffeeProductEntity)
+  @ManyToMany(() => CoffeeProductEntity, product => product.product_order)
+  @JoinTable()
   product: CoffeeProductEntity[];
 
-  @OneToOne(() => CoffeeUserEntity)
+  @OneToOne(() => CoffeeUserEntity, { cascade: true })
+  @JoinColumn()
   user: CoffeeUserEntity;
 }

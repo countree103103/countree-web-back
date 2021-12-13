@@ -18,6 +18,8 @@ export class CoffeeProductOptEntity {
   @Column()
   other: string;
 
-  @OneToOne(() => CoffeeProductEntity, product => product.product_opt)
+  @OneToOne(() => CoffeeProductEntity, product => product.product_opt, {
+    cascade: true,
+  })
   product: CoffeeProductEntity;
 }
