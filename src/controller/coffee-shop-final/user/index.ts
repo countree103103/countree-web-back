@@ -3,12 +3,15 @@ import {
   ALL,
   Body,
   Controller,
+  Get,
   Inject,
   Post,
   Provide,
+  RequestIP,
   Session,
 } from '@midwayjs/decorator';
 import CoffeeUserService from '../../../service/coffee-shop-final/userService';
+import { initEntityFromObject } from '../../../util';
 
 @Controller('/coffee/user')
 @Provide()
@@ -17,14 +20,15 @@ export class CoffeeUserController {
   userService: CoffeeUserService;
 
   @Post('/login')
-  login(
+  async login(
     @Body(ALL) body: Record<string, any>,
     @Session(ALL) session: Record<string, any>
-  ): boolean {
+  ): Promise<boolean> {
     const user = new CoffeeUserEntity();
-    user.user_name = body.user_name;
-    user.user_password = body.user_password;
-    const result = this.userService.login(user);
+    initEntityFromObject(user, body);
+    const result: boolean | CoffeeUserEntity = await this.userService.login(
+      user
+    );
     if (result) {
       //保存登陆状态
       session.user = result;
@@ -34,18 +38,28 @@ export class CoffeeUserController {
     }
   }
 
-  @Post('/register')
-  async register(@Body(ALL) body: Record<string, any>) {
-    const new_user = new CoffeeUserEntity();
-    //TODO: create_date和last_login_date逻辑
-    new_user.user_name = body.user_name;
-    new_user.user_gender = body.user_name;
-    new_user.user_password = body.user_name;
-    const result = this.userService.register(new_user);
-    return result;
+  @Post('/logout')
+  logout(@Session(ALL) sessions: any): boolean {
+    try {
+      sessions.user = null;
+      return true;
+    } catch (error) {
+      return false;
+    }
   }
 
-  @Post('getUserInfo')
+  @Post('/register')
+  async register(
+    @Body(ALL) body: Record<string, any>,
+    @RequestIP() clientIP: string
+  ): Promise<boolean> {
+    const new_user: CoffeeUserEntity = new CoffeeUserEntity();
+    initEntityFromObject(new_user, body);
+    new_user.last_login_ip = clientIP;
+    return await this.userService.register(new_user);
+  }
+
+  @Get('/getUserInfo')
   async getUserInfo(
     @Session('user') user: CoffeeUserEntity
   ): Promise<boolean | Record<string, unknown>> {
@@ -58,6 +72,21 @@ export class CoffeeUserController {
       };
     } else {
       //token过期
+      return false;
+    }
+  }
+
+  @Post('/updateUserInfo')
+  async updateUserInfo(
+    @Body(ALL) body: Record<string, any>,
+    @Session('user') user: CoffeeUserEntity
+  ) {
+    try {
+      initEntityFromObject(user, body);
+      console.log(user);
+      const result = await this.userService.updateUser(user);
+      return result;
+    } catch (error) {
       return false;
     }
   }

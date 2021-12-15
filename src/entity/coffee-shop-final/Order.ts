@@ -7,6 +7,7 @@ import {
   ManyToMany,
   JoinTable,
   JoinColumn,
+  Column,
 } from 'typeorm';
 import { CoffeeProductEntity } from './Product';
 import { CoffeeUserEntity } from './User';
@@ -26,6 +27,9 @@ export class CoffeeOrderEntity {
   @ManyToMany(() => CoffeeProductEntity, product => product.product_order)
   @JoinTable()
   product: CoffeeProductEntity[];
+
+  @Column()
+  product_opt: string;
 
   @OneToOne(() => CoffeeUserEntity, { cascade: true })
   @JoinColumn()

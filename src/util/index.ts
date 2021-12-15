@@ -1,4 +1,4 @@
-function initEntityFromBody(entity: any, body: any): void {
+function initEntityFromObject(entity: any, body: any): void {
   for (const key in body) {
     // if (Object.prototype.hasOwnProperty.call(entity, key)) {
     //   entity[key] = body[key];
@@ -10,4 +10,4 @@ function initEntityFromBody(entity: any, body: any): void {
   }
 }
 
-export { initEntityFromBody };
+export { initEntityFromObject };

@@ -6,6 +6,7 @@ import {
   PrimaryGeneratedColumn,
   OneToMany,
   CreateDateColumn,
+  UpdateDateColumn,
 } from 'typeorm';
 
 @EntityModel()
@@ -13,7 +14,7 @@ export class CoffeeUserEntity {
   @PrimaryGeneratedColumn()
   id: number;
 
-  @Column()
+  @Column({ unique: true })
   user_name: string;
 
   @Column()
@@ -22,16 +23,16 @@ export class CoffeeUserEntity {
   @CreateDateColumn()
   register_date: Date;
 
-  @Column()
+  @UpdateDateColumn()
   last_login_date: Date;
 
   @Column()
   last_login_ip: string;
 
-  @Column({ enum: ['男', '女', '未知'] })
+  @Column({ enum: ['男', '女', '未知'], default: '未知' })
   user_gender: string;
 
-  @Column()
+  @Column({ default: '' })
   user_avatar: string;
 
   @OneToMany(() => CoffeeUserAddressEntity, address => address.user)

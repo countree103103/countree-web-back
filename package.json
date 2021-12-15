@@ -10,7 +10,9 @@
     "@midwayjs/koa": "^2.3.0",
     "@midwayjs/orm": "^2.14.0",
     "fast-xml-parser": "^3.21.1",
+    "koa-body": "^4.2.0",
     "koa-bodyparser": "^4.3.0",
+    "koa-cors": "^0.0.16",
     "koa-session": "^6.2.0",
     "sqlite3": "^5.0.2",
     "typeorm": "^0.2.41"
@@ -33,7 +35,7 @@
   },
   "scripts": {
     "start": "NODE_ENV=production node ./bootstrap.js",
-    "dev": "cross-env NODE_ENV=local midway-bin dev --ts",
+    "dev": "cross-env NODE_ENV=local midway-bin dev --ts --debug",
     "test": "midway-bin test --ts",
     "cov": "midway-bin cov --ts",
     "lint": "mwts check",

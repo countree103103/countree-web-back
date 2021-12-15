@@ -1,19 +1,18 @@
 import * as path from 'path';
 
 export default {
-  
   keys: '7788countree',
 
   // middleware : [],
   wxToken: '7788countree',
 
-  security : {
+  security: {
     csrf: {
       enable: false,
     },
   },
 
-  orm : {
+  orm: {
     type: 'sqlite',
 
     database: path.join(__dirname, '../../data.db'),
@@ -21,5 +20,5 @@ export default {
     synchronize: true,
 
     logging: true,
-  }
+  },
 };
