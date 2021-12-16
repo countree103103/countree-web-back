@@ -14,9 +14,9 @@ import CoffeeProductService from '../../../service/coffee-shop-final/productServ
 import { initEntityFromObject } from '../../../util';
 import { CoffeeProductOptEntity } from '../../../entity/coffee-shop-final/ProductOpt';
 
-@Controller('/coffee/product')
+@Controller('/coffee/admin/product')
 @Provide()
-export class CoffeeProductController {
+export class CoffeeProductAdminController {
   @Inject()
   productService: CoffeeProductService;
 
@@ -41,5 +41,20 @@ export class CoffeeProductController {
     // console.log(new_product);
 
     return this.productService.addProduct(new_product);
+  }
+
+  @Post('/update')
+  async update(
+    @Body(ALL) body: Record<string, any>
+    // @Session(ALL) session: Record<string, any>
+  ) {
+    // const u_product = body;
+    console.log(body);
+    // initEntityFromObject(u_product, body);
+    try {
+      return await this.productService.updateProduct(body);
+    } catch (error) {
+      return false;
+    }
   }
 }

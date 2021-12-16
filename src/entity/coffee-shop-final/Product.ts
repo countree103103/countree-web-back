@@ -2,11 +2,10 @@ import { EntityModel } from '@midwayjs/orm';
 import {
   Column,
   PrimaryGeneratedColumn,
-  OneToOne,
   CreateDateColumn,
   UpdateDateColumn,
   JoinColumn,
-  ManyToOne,
+  OneToMany,
 } from 'typeorm';
 import { CoffeeOrderEntity } from './Order';
 import { CoffeeProductOptEntity } from './ProductOpt';
@@ -43,12 +42,14 @@ export class CoffeeProductEntity {
   @Column({ enum: ['在架', '下架'] })
   product_status: string;
 
-  @OneToOne(() => CoffeeProductOptEntity, product_opt => product_opt.product)
+  @OneToMany(() => CoffeeProductOptEntity, product_opt => product_opt.product, {
+    cascade: true,
+  })
   @JoinColumn()
-  product_opt: CoffeeProductOptEntity;
+  product_opt: CoffeeProductOptEntity[];
 
   //用于订单中显示的商品项目
-  @ManyToOne(() => CoffeeOrderEntity, product_order => product_order.product, {
+  @OneToMany(() => CoffeeOrderEntity, product_order => product_order.product, {
     cascade: true,
   })
   product_order: CoffeeOrderEntity;
