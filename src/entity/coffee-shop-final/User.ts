@@ -36,6 +36,9 @@ export class CoffeeUserEntity {
   @Column({ default: '' })
   user_avatar: string;
 
+  @Column({ enum: ['普通用户', '管理员'], default: '普通用户' })
+  user_type: string;
+
   @OneToMany(() => CoffeeUserAddressEntity, address => address.user, {
     cascade: true,
   })
