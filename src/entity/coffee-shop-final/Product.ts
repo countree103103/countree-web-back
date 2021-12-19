@@ -6,8 +6,9 @@ import {
   UpdateDateColumn,
   JoinColumn,
   OneToMany,
+  // ManyToOne,
 } from 'typeorm';
-import { CoffeeOrderEntity } from './Order';
+// import { CoffeeOrderEntity } from './Order';
 import { CoffeeProductOptEntity } from './ProductOpt';
 
 @EntityModel()
@@ -50,8 +51,6 @@ export class CoffeeProductEntity {
   product_opt: CoffeeProductOptEntity[];
 
   //用于订单中显示的商品项目
-  @OneToMany(() => CoffeeOrderEntity, product_order => product_order.product, {
-    cascade: true,
-  })
-  product_order: CoffeeOrderEntity;
+  // @ManyToOne(() => CoffeeOrderEntity, product_order => product_order.product)
+  // product_order: CoffeeOrderEntity;
 }

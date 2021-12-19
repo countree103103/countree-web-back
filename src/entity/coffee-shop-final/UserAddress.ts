@@ -1,6 +1,13 @@
 import { EntityModel } from '@midwayjs/orm';
 // eslint-disable-next-line node/no-extraneous-import
-import { Column, PrimaryGeneratedColumn, ManyToOne } from 'typeorm';
+import {
+  Column,
+  PrimaryGeneratedColumn,
+  ManyToOne,
+  OneToOne,
+  JoinColumn,
+} from 'typeorm';
+import { CoffeeOrderEntity } from './Order';
 import { CoffeeUserEntity } from './User';
 
 @EntityModel()
@@ -9,10 +16,7 @@ export class CoffeeUserAddressEntity {
   id: number;
 
   @Column()
-  first_name: string;
-
-  @Column()
-  last_name: string;
+  name: string;
 
   @Column()
   tel: string;
@@ -20,6 +24,12 @@ export class CoffeeUserAddressEntity {
   @Column()
   address: string;
 
-  @ManyToOne(() => CoffeeUserEntity, user => user.address, { cascade: true })
+  @ManyToOne(() => CoffeeUserEntity, user => user.address, {
+    orphanedRowAction: 'delete',
+  })
   user: CoffeeUserEntity;
+
+  @OneToOne(() => CoffeeOrderEntity, order => order.address)
+  @JoinColumn()
+  order: CoffeeOrderEntity;
 }

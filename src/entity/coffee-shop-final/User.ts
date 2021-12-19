@@ -8,6 +8,7 @@ import {
   CreateDateColumn,
   UpdateDateColumn,
 } from 'typeorm';
+import { CoffeeOrderEntity } from './Order';
 
 @EntityModel()
 export class CoffeeUserEntity {
@@ -35,6 +36,11 @@ export class CoffeeUserEntity {
   @Column({ default: '' })
   user_avatar: string;
 
-  @OneToMany(() => CoffeeUserAddressEntity, address => address.user)
+  @OneToMany(() => CoffeeUserAddressEntity, address => address.user, {
+    cascade: true,
+  })
   address: CoffeeUserAddressEntity[];
+
+  @OneToMany(() => CoffeeOrderEntity, order => order.user)
+  order: CoffeeOrderEntity[];
 }

@@ -12,6 +12,7 @@ import {
 } from '@midwayjs/decorator';
 import CoffeeUserService from '../../../service/coffee-shop-final/userService';
 import { initEntityFromObject } from '../../../util';
+import { CoffeeUserAddressEntity } from '../../../entity/coffee-shop-final/UserAddress';
 
 @Controller('/coffee/user')
 @Provide()
@@ -84,6 +85,19 @@ export class CoffeeUserController {
   ) {
     try {
       initEntityFromObject(user, body);
+      const addressArr: CoffeeUserAddressEntity[] = [];
+      const addresses = JSON.parse(body.address);
+      console.log(addresses);
+      if (addresses) {
+        for (const address of addresses) {
+          const new_address = new CoffeeUserAddressEntity();
+          new_address.address = address.address;
+          new_address.tel = address.tel;
+          new_address.name = address.name;
+          addressArr.push(new_address);
+        }
+        user.address = addressArr;
+      }
       const result = await this.userService.updateUser(user);
       return result;
     } catch (error) {

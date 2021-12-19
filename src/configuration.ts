@@ -27,6 +27,7 @@ export class ContainerLifeCycle {
 
       ctx.append('Access-Control-Allow-Methods', 'GET,HEAD,PUT,POST,DELETE');
       ctx.append('Access-Control-Allow-Credentials', 'true');
+      ctx.cookies.set('SameSite', 'None');
       await next();
     });
     // this.app.use(

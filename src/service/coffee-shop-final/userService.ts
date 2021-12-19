@@ -25,6 +25,7 @@ export default class CoffeeUserService {
   async login(user: CoffeeUserEntity): Promise<boolean | CoffeeUserEntity> {
     const d_user: CoffeeUserEntity = await this.userModel.findOne({
       where: { user_name: user.user_name, user_password: user.user_password },
+      relations: ['address'],
     });
     return d_user ? d_user : false;
   }
