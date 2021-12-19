@@ -44,6 +44,7 @@ export class CoffeeUserController {
       sessions.user = null;
       return true;
     } catch (error) {
+      console.log(error);
       return false;
     }
   }
@@ -83,10 +84,10 @@ export class CoffeeUserController {
   ) {
     try {
       initEntityFromObject(user, body);
-      console.log(user);
       const result = await this.userService.updateUser(user);
       return result;
     } catch (error) {
+      console.log(error);
       return false;
     }
   }

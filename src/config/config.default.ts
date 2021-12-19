@@ -19,6 +19,6 @@ export default {
 
     synchronize: true,
 
-    logging: true,
+    logging: false,
   },
 };

@@ -46,7 +46,6 @@ export default class WxService {
       Content: responeData,
     };
     resultXml = this.j2x(resultJson);
-    console.log(resultXml);
     return resultXml;
   }
 

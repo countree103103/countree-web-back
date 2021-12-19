@@ -17,6 +17,7 @@ export default class CoffeeUserService {
     try {
       return await this.userModel.save(userUpdated);
     } catch (error) {
+      console.log(error);
       return false;
     }
   }
@@ -38,6 +39,7 @@ export default class CoffeeUserService {
       try {
         await this.userModel.save(new_user);
       } catch (error) {
+        console.log(error);
         return false;
       }
       return true;

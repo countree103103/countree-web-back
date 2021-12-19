@@ -5,7 +5,7 @@ import koaBody = require('koa-body');
 import * as session from 'koa-session';
 import { join } from 'path';
 import * as orm from '@midwayjs/orm';
-import cors = require('koa-cors');
+// import cors = require('koa-cors');
 
 @Configuration({
   imports: [
@@ -19,12 +19,22 @@ export class ContainerLifeCycle {
 
   async onReady(): Promise<void> {
     this.app.keys = ['52013140'];
-    this.app.use(
-      cors({
-        origin: 'http://localhost:8080',
-        credentials: true,
-      })
-    );
+    this.app.use(async (ctx, next) => {
+      const origin = ctx.header['origin'];
+      origin
+        ? ctx.append('Access-Control-Allow-Origin', origin)
+        : ctx.append('Access-Control-Allow-Origin', '*');
+
+      ctx.append('Access-Control-Allow-Methods', 'GET,HEAD,PUT,POST,DELETE');
+      ctx.append('Access-Control-Allow-Credentials', 'true');
+      await next();
+    });
+    // this.app.use(
+    //   cors({
+    //     origin: 'http://localhost:8080',
+    //     credentials: true,
+    //   })
+    // );
     this.app.use(
       session(
         {

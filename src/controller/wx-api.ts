@@ -81,7 +81,6 @@ export class WXAPIController {
     if (!this.wx.wxValidate(query)) {
       return 'authorize failed!';
     } else {
-      console.log(body);
       let wifiData;
       // 判断数据库内是否存在该ssid
       if ((wifiData = await this.wifi.getBySSID(body.ssid))) {

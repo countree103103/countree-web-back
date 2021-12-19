@@ -18,7 +18,7 @@ export class CoffeeProductEntity {
   @Column()
   product_name: string;
 
-  @Column()
+  @Column({ nullable: true })
   product_des: string;
 
   @CreateDateColumn()
@@ -27,23 +27,24 @@ export class CoffeeProductEntity {
   @Column()
   product_price_now: number;
 
-  @Column()
+  @Column({ nullable: true })
   product_price_before: number;
 
   @UpdateDateColumn()
   product_update_time: any;
 
-  @Column()
+  @Column({ nullable: true })
   product_type: string;
 
-  @Column()
+  @Column({ nullable: true })
   product_img: string;
 
-  @Column({ enum: ['在架', '下架'] })
+  @Column({ enum: ['在架', '下架'], default: '在架' })
   product_status: string;
 
   @OneToMany(() => CoffeeProductOptEntity, product_opt => product_opt.product, {
     cascade: true,
+    nullable: true,
   })
   @JoinColumn()
   product_opt: CoffeeProductOptEntity[];

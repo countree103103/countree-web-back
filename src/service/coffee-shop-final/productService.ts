@@ -13,10 +13,18 @@ export default class CoffeeProductService {
   @InjectEntityModel(CoffeeProductOptEntity)
   productOptModel: Repository<CoffeeProductOptEntity>;
 
-  async getAllProducts(): Promise<any> {
-    const products: CoffeeProductEntity[] = await this.productModel.find({
-      relations: ['product_opt'],
-    });
+  async getAllProducts(select?: (keyof CoffeeProductEntity)[]): Promise<any> {
+    let products: CoffeeProductEntity[];
+    if (select) {
+      products = await this.productModel.find({
+        relations: ['product_opt'],
+        select: select,
+      });
+    } else {
+      products = await this.productModel.find({
+        relations: ['product_opt'],
+      });
+    }
     if (products) {
       return products;
     } else {
@@ -32,6 +40,7 @@ export default class CoffeeProductService {
       await this.productModel.save(new_product);
       return true;
     } catch (error) {
+      console.log(error);
       return false;
     }
   }
@@ -43,19 +52,20 @@ export default class CoffeeProductService {
         // relations: ['product_opt'],
       });
       const arr: CoffeeProductOptEntity[] = [];
-      console.log(JSON.parse(body._product_opt));
-      for (const i of JSON.parse(body._product_opt)) {
-        console.log(i);
-        const new_opt = new CoffeeProductOptEntity();
-        new_opt.title = i.title;
-        new_opt.attr = i.attr;
-        arr.push(new_opt);
+      if (body.product_opt) {
+        for (const i of JSON.parse(body.product_opt)) {
+          const new_opt = new CoffeeProductOptEntity();
+          new_opt.title = i.title;
+          new_opt.attr = i.attr;
+          arr.push(new_opt);
+        }
       }
-      console.log(arr);
       if (product) {
         initEntityFromObject(product, body);
         // product.product_price_before = u_product.product_price_before;
-        product.product_opt = arr;
+        if (body.product_opt) {
+          product.product_opt = arr;
+        }
         return await this.productModel.save(product);
       } else {
         return false;
@@ -68,7 +78,7 @@ export default class CoffeeProductService {
 
   async getProduct(
     where: Record<string, any>
-  ): Promise<CoffeeProductEntity | boolean> {
+  ): Promise<CoffeeProductEntity | false> {
     try {
       return await this.productModel.findOne({ where: where ? where : null });
     } catch (error) {

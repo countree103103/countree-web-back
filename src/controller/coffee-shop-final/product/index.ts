@@ -38,7 +38,6 @@ export class CoffeeProductController {
     initEntityFromObject(new_product, body);
     initEntityFromObject(new_product_opt, body.product_opt);
     new_product.product_opt = [new_product_opt];
-    // console.log(new_product);
 
     return this.productService.addProduct(new_product);
   }
