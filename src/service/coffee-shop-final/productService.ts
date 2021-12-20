@@ -32,6 +32,23 @@ export default class CoffeeProductService {
     }
   }
 
+  async getProductImg(product_name: string): Promise<false | string> {
+    try {
+      const product = await this.productModel.findOne({
+        where: { product_name: product_name },
+        select: ['product_img'],
+      });
+      if (product.product_img) {
+        return product.product_img;
+      } else {
+        return false;
+      }
+    } catch (error) {
+      console.log(error);
+      return false;
+    }
+  }
+
   async addProduct(
     new_product: CoffeeProductEntity,
     new_product_opt?: CoffeeProductOptEntity

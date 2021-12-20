@@ -62,7 +62,11 @@ export class CoffeeUserAdminController {
   }
 
   @Get('/')
-  async getAllUser() {
+  async getAllUser(@Session(ALL) session: Record<string, any>) {
+    if (!session.user) {
+      return false;
+    }
+
     try {
       return await this.userService.getAllUser();
     } catch (error) {
@@ -93,6 +97,9 @@ export class CoffeeUserAdminController {
     @Body(ALL) body: Record<string, any>,
     @Session('user') user: CoffeeUserEntity
   ) {
+    if (!user) {
+      return false;
+    }
     try {
       initEntityFromObject(user, body);
       const addressArr: CoffeeUserAddressEntity[] = [];

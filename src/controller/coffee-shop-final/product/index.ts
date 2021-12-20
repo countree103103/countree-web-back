@@ -28,6 +28,19 @@ export class CoffeeProductController {
     return await this.productService.getAllProducts();
   }
 
+  @Post('/getProductImg')
+  async getProductImg(@Body('product_name') product_name: string) {
+    if (!product_name) {
+      return false;
+    }
+    try {
+      return await this.productService.getProductImg(product_name);
+    } catch (error) {
+      console.log(error);
+      return false;
+    }
+  }
+
   @Post('/add')
   async addProduct(
     @Body(ALL) body: Record<string, any>,

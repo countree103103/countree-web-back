@@ -5,6 +5,7 @@ import {
   Inject,
   Post,
   Provide,
+  Session,
 } from '@midwayjs/decorator';
 import CoffeeOrderService from '../../../service/coffee-shop-final/orderService';
 
@@ -16,9 +17,13 @@ export class CoffeeOrderAdminController {
 
   @Post('/update')
   async update(
-    @Body(ALL) body: Record<string, any>
-    // @Session(ALL) session: Record<string, any>
+    @Body(ALL) body: Record<string, any>,
+    @Session(ALL) session: Record<string, any>
   ) {
+    if (!session.user) {
+      return false;
+    }
+
     // const u_product = body;
     // initEntityFromObject(u_product, body);
     try {

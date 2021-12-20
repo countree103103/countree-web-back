@@ -24,7 +24,7 @@ export class CoffeeProductAdminController {
   async getProductList(
     @Body(ALL) body: Record<string, any>,
     @Session(ALL) session: Record<string, any>
-  ): Promise<CoffeeProductEntity[]> {
+  ): Promise<CoffeeProductEntity[] | false> {
     // return await this.productService.getAllProducts([
     //   'id',
     //   'product_create_time',
@@ -34,6 +34,10 @@ export class CoffeeProductAdminController {
     //   'product_type',
     //   'product_status',
     // ]);
+    if (!session.user) {
+      return false;
+    }
+
     return await this.productService.getAllProducts();
   }
 
@@ -42,6 +46,10 @@ export class CoffeeProductAdminController {
     @Body(ALL) body: Record<string, any>,
     @Session(ALL) session: Record<string, any>
   ): Promise<any> {
+    if (!session.user) {
+      return false;
+    }
+
     const new_product = new CoffeeProductEntity();
     const new_product_opt: CoffeeProductOptEntity[] = [];
     const opt = JSON.parse(body.product_opt);
@@ -65,11 +73,15 @@ export class CoffeeProductAdminController {
 
   @Post('/update')
   async update(
-    @Body(ALL) body: Record<string, any>
-    // @Session(ALL) session: Record<string, any>
+    @Body(ALL) body: Record<string, any>,
+    @Session(ALL) session: Record<string, any>
   ) {
     // const u_product = body;
     // initEntityFromObject(u_product, body);
+    if (!session.user) {
+      return false;
+    }
+
     try {
       return await this.productService.updateProduct(body);
     } catch (error) {
@@ -79,7 +91,14 @@ export class CoffeeProductAdminController {
   }
 
   @Post('/toggle')
-  async deleteProduct(@Body(ALL) body: any) {
+  async deleteProduct(
+    @Body(ALL) body: any,
+    @Session(ALL) session: Record<string, any>
+  ) {
+    if (!session.user) {
+      return false;
+    }
+
     if (body.id) {
       // const product: CoffeeProductEntity | false =
       //   await this.productService.getProduct({ id: body.id });
