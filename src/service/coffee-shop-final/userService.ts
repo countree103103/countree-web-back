@@ -22,11 +22,26 @@ export default class CoffeeUserService {
     }
   }
 
-  async login(user: CoffeeUserEntity): Promise<boolean | CoffeeUserEntity> {
-    const d_user: CoffeeUserEntity = await this.userModel.findOne({
-      where: { user_name: user.user_name, user_password: user.user_password },
-      relations: ['address'],
-    });
+  async login(
+    user: CoffeeUserEntity,
+    checkAdmin = false
+  ): Promise<boolean | CoffeeUserEntity> {
+    let d_user: CoffeeUserEntity;
+    if (!checkAdmin) {
+      d_user = await this.userModel.findOne({
+        where: { user_name: user.user_name, user_password: user.user_password },
+        relations: ['address'],
+      });
+    } else {
+      d_user = await this.userModel.findOne({
+        where: {
+          user_name: user.user_name,
+          user_password: user.user_password,
+          user_type: '管理员',
+        },
+        relations: ['address'],
+      });
+    }
     return d_user ? d_user : false;
   }
 

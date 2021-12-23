@@ -28,7 +28,8 @@ export class CoffeeUserAdminController {
     const user = new CoffeeUserEntity();
     initEntityFromObject(user, body);
     const result: boolean | CoffeeUserEntity = await this.userService.login(
-      user
+      user,
+      true
     );
     if (result) {
       //保存登陆状态
