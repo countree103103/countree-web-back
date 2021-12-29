@@ -66,6 +66,8 @@ export class CoffeeUserController {
     @Session('user') user: CoffeeUserEntity
   ): Promise<boolean | Record<string, unknown>> {
     if (user) {
+      user.last_login_date = new Date();
+      this.userService.updateUser(user)
       return {
         user_name: user.user_name,
         user_gender: user.user_gender,
