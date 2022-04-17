@@ -33,7 +33,7 @@ export class CoffeeUserAdminController {
     );
     if (result) {
       //保存登陆状态
-      session.user = result;
+      session.session.user = result;
       return true;
     } else {
       return false;
@@ -43,7 +43,7 @@ export class CoffeeUserAdminController {
   @Post('/logout')
   logout(@Session(ALL) sessions: any): boolean {
     try {
-      sessions.user = null;
+      sessions.session.user = null;
       return true;
     } catch (error) {
       console.log(error);
@@ -64,7 +64,7 @@ export class CoffeeUserAdminController {
 
   @Get('/')
   async getAllUser(@Session(ALL) session: Record<string, any>) {
-    if (!session.user) {
+    if (!session.session.user) {
       return false;
     }
 

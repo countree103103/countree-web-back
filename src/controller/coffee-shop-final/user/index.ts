@@ -32,7 +32,7 @@ export class CoffeeUserController {
     );
     if (result) {
       //保存登陆状态
-      session.user = result;
+      session.session.user = result;
       return true;
     } else {
       return false;
@@ -42,7 +42,7 @@ export class CoffeeUserController {
   @Post('/logout')
   logout(@Session(ALL) sessions: any): boolean {
     try {
-      sessions.user = null;
+      sessions.session.user = null;
       return true;
     } catch (error) {
       console.log(error);
@@ -65,6 +65,7 @@ export class CoffeeUserController {
   async getUserInfo(
     @Session('user') user: CoffeeUserEntity
   ): Promise<boolean | Record<string, unknown>> {
+    console.log(user);
     if (user) {
       user.last_login_date = new Date();
       this.userService.updateUser(user)

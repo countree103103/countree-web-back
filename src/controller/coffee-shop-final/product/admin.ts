@@ -34,7 +34,7 @@ export class CoffeeProductAdminController {
     //   'product_type',
     //   'product_status',
     // ]);
-    if (!session.user) {
+    if (!session.session.user) {
       return false;
     }
 
@@ -46,7 +46,7 @@ export class CoffeeProductAdminController {
     @Body(ALL) body: Record<string, any>,
     @Session(ALL) session: Record<string, any>
   ): Promise<any> {
-    if (!session.user) {
+    if (!session.session.user) {
       return false;
     }
 
@@ -78,7 +78,7 @@ export class CoffeeProductAdminController {
   ) {
     // const u_product = body;
     // initEntityFromObject(u_product, body);
-    if (!session.user) {
+    if (!session.session.user) {
       return false;
     }
 
@@ -95,7 +95,7 @@ export class CoffeeProductAdminController {
     @Body(ALL) body: any,
     @Session(ALL) session: Record<string, any>
   ) {
-    if (!session.user) {
+    if (!session.session.user) {
       return false;
     }
 

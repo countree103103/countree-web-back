@@ -22,8 +22,6 @@ export class CoffeeProductController {
 
   @Get('/')
   async getProductList(
-    @Body(ALL) body: Record<string, any>,
-    @Session(ALL) session: Record<string, any>
   ): Promise<CoffeeProductEntity[]> {
     return await this.productService.getAllProducts();
   }
