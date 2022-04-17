@@ -33,7 +33,7 @@ export class CoffeeUserAdminController {
     );
     if (result) {
       //保存登陆状态
-      session.session.user = result;
+      session.user = result;
       return true;
     } else {
       return false;
