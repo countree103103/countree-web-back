@@ -20,8 +20,8 @@ export class CoffeeOrderController {
   orderService: CoffeeOrderService;
 
   @Get('/')
-  async getOrderList(): Promise<CoffeeOrderEntity[]> {
-    return await this.orderService.getAllOrder();
+  async getOrderList(@Session('user') user: any): Promise<CoffeeOrderEntity[]> {
+    return await this.orderService.getAllOrder(user);
   }
 
   @Post('/add')
