@@ -6,7 +6,9 @@ import {
   Post,
   Provide,
   Session,
+  Get,
 } from '@midwayjs/decorator';
+import { CoffeeOrderEntity } from '../../../entity/coffee-shop-final/Order';
 import CoffeeOrderService from '../../../service/coffee-shop-final/orderService';
 
 @Controller('/coffee/admin/order')
@@ -14,6 +16,11 @@ import CoffeeOrderService from '../../../service/coffee-shop-final/orderService'
 export class CoffeeOrderAdminController {
   @Inject()
   orderService: CoffeeOrderService;
+
+  @Get('/')
+  async getAllOrder(): Promise<CoffeeOrderEntity[]> {
+    return this.orderService.getAllOrder();
+  }
 
   @Post('/update')
   async update(

@@ -9,12 +9,17 @@ export default class CoffeeOrderService {
   @InjectEntityModel(CoffeeOrderEntity)
   orderModel: Repository<CoffeeOrderEntity>;
 
-  async getAllOrder(user: any): Promise<CoffeeOrderEntity[]> {
+  async getAllOrderByUser(user: any): Promise<CoffeeOrderEntity[]> {
     const orders: CoffeeOrderEntity[] = await this.orderModel.find({
       where: {
         user: user,
       },
     });
+    return orders;
+  }
+
+  async getAllOrder(): Promise<CoffeeOrderEntity[]> {
+    const orders: CoffeeOrderEntity[] = await this.orderModel.find();
     return orders;
   }
 
