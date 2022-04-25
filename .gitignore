@@ -16,3 +16,4 @@ run/
 srcbak/
 data.db
 node_modules*/
+*.bak*
