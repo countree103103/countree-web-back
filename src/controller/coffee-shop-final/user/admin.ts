@@ -41,7 +41,7 @@ export class CoffeeUserAdminController {
   }
 
   @Post('/logout')
-  logout(@Session(ALL) sessions: any): boolean {
+  async logout(@Session(ALL) sessions: any): Promise<boolean> {
     try {
       sessions.user = null;
       return true;

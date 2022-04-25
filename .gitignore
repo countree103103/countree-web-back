@@ -15,3 +15,4 @@ run/
 .tsbuildinfo.*
 srcbak/
 data.db
+node_modules*/
